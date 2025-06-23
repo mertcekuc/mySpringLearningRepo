@@ -1,17 +1,16 @@
 package com.mertspring.springCore.common;
 
-
 import org.springframework.stereotype.Component;
 
 @Component
-public class CricketCoach implements Coach{
+public class TrackCoach implements Coach {
 
-    public CricketCoach(){
+    public TrackCoach(){
         System.out.println(getClass().getSimpleName() + " created");
     }
 
     @Override
     public String getDailyWorkout() {
-        return "Cricket Coach says: Practice fast bowling for 15 minutes!!!";
+        return "Track Coach says: Make daily worout!!!";
     }
 }
