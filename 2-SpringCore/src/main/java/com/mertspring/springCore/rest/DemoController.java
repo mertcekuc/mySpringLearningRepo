@@ -10,13 +10,24 @@ import com.mertspring.springCore.common.Coach;
 public class DemoController {
     //Dependency injection
     private Coach myCoach;
+    private Coach anotherCoach;
 
 
     @Autowired
-    public DemoController(@Qualifier("baseballCoach") Coach coach){
+    public DemoController(@Qualifier("aquatic") Coach coach){
+        myCoach=coach;
+    }
+
+/* For singletone scope test
+    @Autowired
+    public DemoController(@Qualifier("baseballCoach") Coach coach,
+                          @Qualifier("baseballCoach") Coach coach2){
+
         System.out.println(getClass().getSimpleName() + " created");
         this.myCoach = coach;
-    }
+        this.anotherCoach = coach2;
+
+    }*/
 
     //public DemoController(Coach coach){ myCoach = coach;}
 
@@ -31,4 +42,8 @@ public class DemoController {
         return myCoach.getDailyWorkout();
     }
 
+    @GetMapping("/check")
+    String checkCoaches(){
+        return ("Are they same ? : " + (myCoach == anotherCoach));
+    }
 }
