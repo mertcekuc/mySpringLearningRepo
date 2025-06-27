@@ -21,14 +21,46 @@ public class SpringjpaApplication {
 		return runner-> {
 			//createStudent(studentDAO);
 
-			//createMultipleStudent(studentDAO);
+			createMultipleStudents(studentDAO);
 
 			//readStudent(studentDAO);
 
 			//readAllStudents(studentDAO);
 
-			queryByLastName(studentDAO);
+			//queryByLastName(studentDAO);
+
+			//updateStuednt(studentDAO);
+
+			//deleteStuednt(studentDAO);
+
+			//removeAllStudents(studentDAO);
+
+
 		};
+	}
+
+	private void removeAllStudents(StudentDAO studentDAO) {
+		int count = studentDAO.deleteAll();
+		System.out.printf("All %d students are removed!",count);
+	}
+
+	private void deleteStuednt(StudentDAO studentDAO) {
+		int id =3;
+		System.out.println("Studnet " + id +"will be deleted");
+		studentDAO.delete(3);
+		System.out.println(":....");
+		System.out.println("deleted");
+	}
+
+	private void updateStuednt(StudentDAO studentDAO) {
+
+		//change name of student
+		Student temp = studentDAO.findByID(1);
+		temp.setFirstName("Mert");
+		temp.setLastName("Cekuc");
+		studentDAO.update(temp);
+		System.out.println("Stuednt updated");
+		System.out.println(temp);
 	}
 
 	private void queryByLastName(StudentDAO studentDAO) {
