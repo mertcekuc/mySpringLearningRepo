@@ -1,5 +1,6 @@
 package com.mertspring.validationdemo.model;
 
+import com.mertspring.validationdemo.validation.CourseCode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
@@ -22,6 +23,9 @@ public class Customer {
 
     @Pattern(regexp = "^[a-zA-Z0-9]{5}",message = "Postal code is not valid")
     private String postalCode;
+
+    @CourseCode(value = "CKC", message = "should start with CKC")
+    private String courseCode;
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -49,6 +53,14 @@ public class Customer {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 }
 
