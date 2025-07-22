@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+</head>
+<body>
+    <h3>Custom Login Page</h3>
+    <div th:if="${param.error}">
+        <i style="color:red">"You entered a wrong username or password"</i>
+    </div>
+<form action="#" th:action="@{/authenticateTheUser}" method="post">
+    <p>Username:<input type="text" name="username"></p>
+
+    <p>Password:<input type="password" name="password"></p>
+
+    <input type="submit" value="login">
+</form>
+
+</body>
+</html>
