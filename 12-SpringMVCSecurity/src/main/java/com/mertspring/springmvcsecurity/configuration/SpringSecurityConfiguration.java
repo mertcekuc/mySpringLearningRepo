@@ -13,6 +13,22 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringSecurityConfiguration {
 
+
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource){
+        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        userDetailsManager.setUsersByUsernameQuery(
+                "select user_id, pw, active from members where user_id=?"
+        );
+
+        userDetailsManager.setAuthoritiesByUsernameQuery(
+                "select user_id, role from roles where user_id=?"
+        );
+
+        return userDetailsManager;
+    }
+
     /*
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(){
@@ -38,11 +54,12 @@ public class SpringSecurityConfiguration {
     }
     */
 
+    /*
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource){
         return new JdbcUserDetailsManager(dataSource);
     }
-
+    */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
