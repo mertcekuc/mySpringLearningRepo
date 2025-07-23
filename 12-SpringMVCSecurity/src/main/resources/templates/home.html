@@ -13,14 +13,17 @@
     <p>Hello <span sec:authentication="principal.username"></span> </p>
     <p>Role: <span sec:authentication="principal.authorities"></span></p>
     <hr>
+    <div sec:authorize="hasRole('MANAGER')">
     <p>
         <a th:href="@{/leaders}">Leadership Menu</a>
     </p>
-    <hr>
+    <hr></div>
+    <div sec:authorize="hasRole('ADMIN')">
+
     <p>
         <a th:href="@{/systems}">Systems Page</a>
     </p>
-    <hr>
+    <hr></div>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Logout">
     </form>
