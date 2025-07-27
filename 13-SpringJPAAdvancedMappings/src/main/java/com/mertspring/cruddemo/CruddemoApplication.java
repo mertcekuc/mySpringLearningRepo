@@ -1,5 +1,8 @@
 package com.mertspring.cruddemo;
 
+import com.mertspring.cruddemo.dao.AppDAO;
+import com.mertspring.cruddemo.entity.Instructor;
+import com.mertspring.cruddemo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,10 +16,25 @@ public class CruddemoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(String[] args){
+	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 			return runner -> {
-				System.out.println("hello world");
+					createInstructor(appDAO);
 				};
 			}
-		}
+
+	private void createInstructor(AppDAO appDAO) {
+		Instructor instructor = new Instructor("John","Doe","jd@test.com");
+
+		InstructorDetail instructorDetail = new InstructorDetail(
+				"yt.com/jd",
+				"coding"
+		);
+
+		instructor.setInstructorDetail(instructorDetail);
+
+		System.out.println("Saving instructor: "+instructor);
+		appDAO.save(instructor);
+
+	}
+}
 
