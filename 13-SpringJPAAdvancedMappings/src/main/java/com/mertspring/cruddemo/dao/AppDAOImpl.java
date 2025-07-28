@@ -1,6 +1,7 @@
 package com.mertspring.cruddemo.dao;
 
 import com.mertspring.cruddemo.entity.Instructor;
+import com.mertspring.cruddemo.entity.InstructorDetail;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,6 +34,12 @@ public class AppDAOImpl implements AppDAO {
     public void deleteNyID(int id) {
         Instructor instructor = entityManager.find(Instructor.class,id);
         entityManager.remove(instructor);
+    }
+
+    @Override
+    public InstructorDetail findInstructorDetail(int id) {
+        InstructorDetail instructorDetail = entityManager.find(InstructorDetail.class, id);
+        return instructorDetail;
     }
 
 

@@ -18,6 +18,9 @@ public class InstructorDetail {
     @Column(name="hobby")
     private String hobby;
 
+    @OneToOne(mappedBy = "instructorDetail")
+    private Instructor instructor;
+
     public InstructorDetail() {
     }
 
@@ -50,6 +53,14 @@ public class InstructorDetail {
         this.hobby = hobby;
     }
 
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
     @Override
     public String toString() {
         return "InstructorDetail{" +
@@ -58,4 +69,6 @@ public class InstructorDetail {
                 ", hobby='" + hobby + '\'' +
                 '}';
     }
+
+
 }

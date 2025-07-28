@@ -1,11 +1,13 @@
 package com.mertspring.cruddemo.dao;
 
 import com.mertspring.cruddemo.entity.Instructor;
+import com.mertspring.cruddemo.entity.InstructorDetail;
 
 
 public interface AppDAO {
 
-    public void save(Instructor instructor);
-    public Instructor findByID(int id);
-    public void deleteNyID(int id);
+     void save(Instructor instructor);
+     Instructor findByID(int id);
+     void deleteNyID(int id);
+     InstructorDetail findInstructorDetail(int id);
 }
