@@ -1,12 +1,15 @@
 package com.mertspring.cruddemo;
 
 import com.mertspring.cruddemo.dao.AppDAO;
+import com.mertspring.cruddemo.entity.Course;
 import com.mertspring.cruddemo.entity.Instructor;
 import com.mertspring.cruddemo.entity.InstructorDetail;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
 
 @SpringBootApplication
 public class CruddemoApplication {
@@ -22,9 +25,35 @@ public class CruddemoApplication {
 					//findInstructor(appDAO);
 					//deleteInstructor(appDAO);
 					//findInstructorDetail(appDAO);
-					deleteInstructorDetail(appDAO);
+					//deleteInstructorDetail(appDAO);
+					createInstructorWithCourses(appDAO);
+
 				};
 			}
+
+	private void createInstructorWithCourses(AppDAO appDAO) {
+		Instructor instructor = new Instructor("Mert","Cekuc","mc@test.com");
+
+		InstructorDetail instructorDetail = new InstructorDetail(
+				"yt.com/mc",
+				"Computer Science"
+		);
+
+		instructor.setInstructorDetail(instructorDetail);
+
+		Course c1 = new Course("Java");
+		Course c2 = new Course("Python");
+		Course c3 = new Course("JavaScript");
+
+		instructor.addCourse(c1);
+		instructor.addCourse(c2);
+		instructor.addCourse(c3);
+
+
+		appDAO.save(instructor);
+		System.out.println("Done");
+
+	}
 
 	private void deleteInstructorDetail(AppDAO appDAO) {
 		System.out.println("Deleteing instructor 2");
