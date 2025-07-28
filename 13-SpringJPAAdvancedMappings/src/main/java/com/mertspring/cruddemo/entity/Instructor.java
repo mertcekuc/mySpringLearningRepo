@@ -80,7 +80,7 @@ public class Instructor {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", instructorDetail=" + instructorDetail +
+                "\ninstructorDetail=" + instructorDetail +
                 '}';
     }
 }

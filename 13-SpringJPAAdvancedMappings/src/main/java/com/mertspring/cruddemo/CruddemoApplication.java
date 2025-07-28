@@ -19,8 +19,23 @@ public class CruddemoApplication {
 	public CommandLineRunner commandLineRunner(AppDAO appDAO){
 			return runner -> {
 					createInstructor(appDAO);
+
+					deleteInstructor(appDAO);
 				};
 			}
+
+	private void deleteInstructor(AppDAO appDAO) {
+		System.out.println("instructor 2 wull be deleted");
+		findInstructor(appDAO);
+		appDAO.deleteNyID(2);
+
+	}
+
+	private void findInstructor(AppDAO appDAO) {
+		Instructor instructor= appDAO.findByID(2);
+
+		System.out.println(instructor);
+	}
 
 	private void createInstructor(AppDAO appDAO) {
 		Instructor instructor = new Instructor("John","Doe","jd@test.com");
@@ -31,6 +46,8 @@ public class CruddemoApplication {
 		);
 
 		instructor.setInstructorDetail(instructorDetail);
+
+
 
 		System.out.println("Saving instructor: "+instructor);
 		appDAO.save(instructor);
