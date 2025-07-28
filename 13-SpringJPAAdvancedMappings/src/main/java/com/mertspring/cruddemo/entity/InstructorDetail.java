@@ -18,13 +18,14 @@ public class InstructorDetail {
     @Column(name="hobby")
     private String hobby;
 
-    @OneToOne(mappedBy = "instructorDetail")
+    @OneToOne(mappedBy = "instructorDetail",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Instructor instructor;
 
     public InstructorDetail() {
     }
 
     public InstructorDetail(String youtubeChannel, String hobby) {
+
         this.youtubeChannel = youtubeChannel;
         this.hobby = hobby;
     }
