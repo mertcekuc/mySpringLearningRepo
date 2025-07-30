@@ -26,10 +26,61 @@ public class CruddemoApplication {
 					//deleteInstructor(appDAO);
 					//findInstructorDetail(appDAO);
 					//deleteInstructorDetail(appDAO);
-					createInstructorWithCourses(appDAO);
-
+					//createInstructorWithCourses(appDAO);
+					//findInstructorWithCourses(appDAO);
+					//findCoursesByInstructor(appDAO);
+					//findInstructorWithCourseByFetch(appDAO);
+					updateInstructor(appDAO);
 				};
 			}
+
+	private void updateInstructor(AppDAO appDAO) {
+		Instructor instructor = appDAO.findByID(1);
+		System.out.println("Before Update");
+		System.out.println(instructor);
+
+		instructor.getInstructorDetail().setYoutubeChannel("youtube.com/testAccount");
+		System.out.println("After update");
+		System.out.println(instructor);
+		appDAO.update(instructor);
+		System.out.println("DONE");
+
+	}
+
+	private void findInstructorWithCourseByFetch(AppDAO appDAO) {
+		int id = 1;
+		Instructor instructor = appDAO.findInstructorByIdJoinFetch(id);
+		System.out.println("FOUND");
+		System.out.println(instructor);
+		System.out.println(instructor.getCourses());
+		System.out.println("DONE");
+	}
+
+	private void findCoursesByInstructor(AppDAO appDAO) {
+		int id = 1;
+		Instructor instructor = appDAO.findByID(id);
+
+		List<Course> result = appDAO.findCoursesByInstructorID(id);
+
+		instructor.setCourses(result);
+		System.out.println(instructor);
+		System.out.println(instructor.getCourses());
+
+		System.out.println("DONE");
+	}
+
+	private void findInstructorWithCourses(AppDAO appDAO) {
+		int id=1;
+		System.out.println("finding instructor "+id);
+
+		Instructor instructor = appDAO.findByID(id);
+
+		System.out.println("the instructor: " +instructor);
+
+		System.out.println("Courses:"+instructor.getCourses());
+
+		System.out.println("Done");
+	}
 
 	private void createInstructorWithCourses(AppDAO appDAO) {
 		Instructor instructor = new Instructor("Mert","Cekuc","mc@test.com");
