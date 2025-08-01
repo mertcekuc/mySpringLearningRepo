@@ -4,6 +4,7 @@ import com.mertspring.cruddemo.dao.AppDAO;
 import com.mertspring.cruddemo.entity.Course;
 import com.mertspring.cruddemo.entity.Instructor;
 import com.mertspring.cruddemo.entity.InstructorDetail;
+import com.mertspring.cruddemo.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,9 +34,37 @@ public class CruddemoApplication {
 					//updateInstructor(appDAO);
 					//updateCourse(appDAO);
 					//deleteInstructorUpdated(appDAO);
-					deleteCouse(appDAO);
+					//deleteCouse(appDAO);
+					//createCourseAndReviews(appDAO);
+					//retriveCourseWithReviews(appDAO);
+					deleteCouseAndReviews(appDAO);
 				};
 			}
+
+	private void deleteCouseAndReviews(AppDAO appDAO) {
+		int id=10;
+		appDAO.deleteCourseByID(id);
+		System.out.println("DONE");
+	}
+
+	private void retriveCourseWithReviews(AppDAO appDAO) {
+		int id = 10;
+		Course course = appDAO.findCourseAndReviews(id);
+		System.out.println(course);
+		System.out.println(course.getReviews());
+	}
+
+	private void createCourseAndReviews(AppDAO appDAO) {
+		Course course = new Course("Spring Course");
+		course.addReview(new Review("This is a great course"));
+		course.addReview(new Review("This is too long and for beginners"));
+		course.addReview(new Review("This is unnecesarily detailed"));
+		course.addReview(new Review("Very helpful and beginner friendly"));
+
+		appDAO.save(course);
+		System.out.println("Done");
+
+	}
 
 	private void deleteCouse(AppDAO appDAO) {
 		int id = 10;

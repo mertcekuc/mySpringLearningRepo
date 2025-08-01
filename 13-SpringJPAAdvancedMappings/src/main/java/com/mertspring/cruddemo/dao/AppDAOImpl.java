@@ -3,6 +3,7 @@ package com.mertspring.cruddemo.dao;
 import com.mertspring.cruddemo.entity.Course;
 import com.mertspring.cruddemo.entity.Instructor;
 import com.mertspring.cruddemo.entity.InstructorDetail;
+import com.mertspring.cruddemo.entity.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -114,5 +115,26 @@ public class AppDAOImpl implements AppDAO {
     public void deleteCourseByID(int id) {
         Course course = entityManager.find(Course.class,id);
         entityManager.remove(course);
+    }
+
+    @Override
+    @Transactional
+    public void save(Course course) {
+        entityManager.persist(course);
+    }
+
+    @Override
+    public Course findCourseAndReviews(int id) {
+        TypedQuery<Course> query = entityManager.createQuery(
+                "select c from Course c " +
+                        "JOIN FETCH c.reviews " +
+                        "WHERE c.id=:data",Course.class
+        );
+
+        query.setParameter("data",id);
+
+        Course course = query.getSingleResult();
+
+        return course;
     }
 }
