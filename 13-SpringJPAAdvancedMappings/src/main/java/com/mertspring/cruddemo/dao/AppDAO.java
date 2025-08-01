@@ -3,6 +3,7 @@ package com.mertspring.cruddemo.dao;
 import com.mertspring.cruddemo.entity.Course;
 import com.mertspring.cruddemo.entity.Instructor;
 import com.mertspring.cruddemo.entity.InstructorDetail;
+import com.mertspring.cruddemo.entity.Student;
 
 import java.util.List;
 
@@ -23,4 +24,8 @@ public interface AppDAO {
      void  deleteCourseByID(int id);
      void save(Course course);
      Course findCourseAndReviews(int id);
+     Course findCourseAndStudentsByCourseID(int id);
+     Student findStudentAndCoursesByStudentID(int id);
+     void update(Student student);
+     void deleteStudentByID(int id);
 }

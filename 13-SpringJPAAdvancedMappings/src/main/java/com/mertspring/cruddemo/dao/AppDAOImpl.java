@@ -1,9 +1,6 @@
 package com.mertspring.cruddemo.dao;
 
-import com.mertspring.cruddemo.entity.Course;
-import com.mertspring.cruddemo.entity.Instructor;
-import com.mertspring.cruddemo.entity.InstructorDetail;
-import com.mertspring.cruddemo.entity.Review;
+import com.mertspring.cruddemo.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
@@ -136,5 +133,48 @@ public class AppDAOImpl implements AppDAO {
         Course course = query.getSingleResult();
 
         return course;
+    }
+
+    @Override
+    public Course findCourseAndStudentsByCourseID(int id) {
+        TypedQuery<Course> query = entityManager.createQuery("select c from Course c " +
+                "JOIN FETCH c.students " +
+                "Where c.id = :data",Course.class);
+        query.setParameter("data",id);
+        Course course = query.getSingleResult();
+
+        return course;
+    }
+
+    @Override
+    public Student findStudentAndCoursesByStudentID(int id) {
+        TypedQuery<Student> query = entityManager.createQuery("select s from Student s " +
+                "JOIN FETCH s.courses " +
+                "where s.id = :data", Student.class);
+
+        query.setParameter("data",id);
+        Student student = query.getSingleResult();
+        return student;
+    }
+
+    @Override
+    @Transactional
+    public void update(Student student) {
+        entityManager.merge(student);
+    }
+
+    @Override
+    @Transactional
+    public void deleteStudentByID(int id) {
+        Student student = entityManager.find(Student.class,id);
+
+        if(student != null){
+            List<Course> courses = student.getCourses();
+            for(Course course:courses){
+                course.getStudents().remove(student);
+            }
+        }
+
+        entityManager.remove(student);
     }
 }

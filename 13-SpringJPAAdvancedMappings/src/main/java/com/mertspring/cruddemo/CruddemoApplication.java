@@ -1,10 +1,7 @@
 package com.mertspring.cruddemo;
 
 import com.mertspring.cruddemo.dao.AppDAO;
-import com.mertspring.cruddemo.entity.Course;
-import com.mertspring.cruddemo.entity.Instructor;
-import com.mertspring.cruddemo.entity.InstructorDetail;
-import com.mertspring.cruddemo.entity.Review;
+import com.mertspring.cruddemo.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,9 +34,67 @@ public class CruddemoApplication {
 					//deleteCouse(appDAO);
 					//createCourseAndReviews(appDAO);
 					//retriveCourseWithReviews(appDAO);
-					deleteCouseAndReviews(appDAO);
+					//deleteCouseAndReviews(appDAO);
+					//createCourseMtoM(appDAO);
+					//retriveCourseAndStudents(appDAO);
+					//retriveStudentandCourses(appDAO);
+					//addCourseToStudent(appDAO);
+					//deleteCourseM2m(appDAO);
+					deleteStudentM2M(appDAO);
 				};
 			}
+
+	private void deleteStudentM2M(AppDAO appDAO) {
+		int id=2;
+		appDAO.deleteStudentByID(id);
+		System.out.println("DONE");
+	}
+
+	private void deleteCourseM2m(AppDAO appDAO) {
+		int id=10;
+		appDAO.deleteCourseByID(10);
+	}
+
+	private void addCourseToStudent(AppDAO appDAO) {
+		Student student = appDAO.findStudentAndCoursesByStudentID(2);
+		Course course= new Course("Python course");
+		student.addCourse(course);
+		appDAO.update(student);
+		System.out.println("DONE");
+	}
+
+	private void retriveStudentandCourses(AppDAO appDAO) {
+		int id = 1;
+		Student student = appDAO.findStudentAndCoursesByStudentID(id);
+		System.out.println(student);
+		System.out.println(student.getCourses());
+		System.out.println("done");
+	}
+
+	private void retriveCourseAndStudents(AppDAO appDAO) {
+		int id = 10;
+		Course course = appDAO.findCourseAndStudentsByCourseID(id);
+		System.out.println(course);
+		System.out.println(course.getStudents());
+		System.out.println("done");
+	}
+
+	private void createCourseMtoM(AppDAO appDAO) {
+		Course course = new Course("Spring Boot");
+		Student s1 = new Student("Mert","Cekuc","mc@mail.com");
+		Student s2 = new Student("Elif","Cekuc","ec@mail.com");
+		Student s3 = new Student("John","Doe","jd@mail.com");
+
+		course.addStudent(s1);
+		course.addStudent(s2);
+		course.addStudent(s3);
+
+		System.out.println(course);
+		System.out.println(course.getStudents());
+
+		appDAO.save(course);
+		System.out.println("DONE");
+	}
 
 	private void deleteCouseAndReviews(AppDAO appDAO) {
 		int id=10;
