@@ -1,5 +1,5 @@
 package com.mertspr.ng.Spr.ng.AOP.dao;
 
 public interface AccountDAO {
-    void addAccount();
+    void addAccount(int i,int j);
 }

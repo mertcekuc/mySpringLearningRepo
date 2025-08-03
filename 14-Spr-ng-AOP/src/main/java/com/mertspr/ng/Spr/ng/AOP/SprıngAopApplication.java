@@ -1,6 +1,7 @@
 package com.mertspr.ng.Spr.ng.AOP;
 
 import com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO;
+import com.mertspr.ng.Spr.ng.AOP.dao.MembershipDAO;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,17 +15,18 @@ public class SprıngAopApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO){
+	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO){
 		return runner ->{
-			demoTheBeforeAdvice(accountDAO);
+			demoTheBeforeAdvice(accountDAO,membershipDAO);
+
 		};
 
 	}
 
-	private void demoTheBeforeAdvice(AccountDAO accountDAO) {
-		accountDAO.addAccount();
-		System.out.println("\nTesting again...\n");
-		accountDAO.addAccount();
-
+	private void demoTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
+		accountDAO.addAccount(1,2);
+		System.out.println();
+		System.out.println("Adding membership");
+		membershipDAO.addMembership();
 	}
 }
