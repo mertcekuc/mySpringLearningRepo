@@ -19,14 +19,21 @@ public class SprıngAopApplication {
 		return runner ->{
 			demoTheBeforeAdvice(accountDAO,membershipDAO);
 
+
 		};
 
 	}
 
 	private void demoTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-		accountDAO.addAccount(1,2);
+		//accountDAO.addAccount(1,2);
 		System.out.println();
 		System.out.println("Adding membership");
 		membershipDAO.addMembership();
+
+		//call getter setters
+		accountDAO.setName("mert");
+		accountDAO.getName();
+		accountDAO.setServiceCode("1234ABCD");
+		accountDAO.getServiceCode();
 	}
 }
