@@ -4,10 +4,12 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(3)
 public class DemoLoggingAspet {
 
     //@Before("execution(public void com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO.addAccount())")
@@ -31,17 +33,10 @@ public class DemoLoggingAspet {
         System.out.println(getClass() + "Before executing adding account advice!!!!!");
     }
 
-    @Pointcut("execution(* com.mertspr.ng.Spr.ng.AOP.dao.*.*(..))")
-    private void customPonitcutForDAO(){}
 
-    @Before("customPonitcutForDAO() && !forGetters() && !forSetters()")
-    public void custom2(){
-        System.out.println("CUSTOM2");
+    @Before("com.mertspr.ng.Spr.ng.AOP.aspect.MertsAopExpressions.noGetterSetter()")
+    public void nogs(){
+        System.out.println("Advice of no getter setter ONE!!!11111");
     }
 
-    @Pointcut("execution(* com.mertspr.ng.Spr.ng.AOP.dao.*.get*(..))")
-    public void forGetters(){}
-
-    @Pointcut("execution(* com.mertspr.ng.Spr.ng.AOP.dao.*.set*(..))")
-    public void forSetters(){}
 }
