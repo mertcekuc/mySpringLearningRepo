@@ -2,10 +2,7 @@ package com.mertspr.ng.Spr.ng.AOP.aspect;
 
 import com.mertspr.ng.Spr.ng.AOP.Account;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodMatcher;
 import org.springframework.core.annotation.Order;
@@ -61,10 +58,10 @@ public class DemoLoggingAspet {
 
         System.out.println("Method: "+ methodSignature);
     }
+
     @AfterReturning(
             pointcut = "execution(* com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO.findAccounts(..))",
             returning = "result")
-
     public void afterReturningAdvice(
             JoinPoint joinPoint,
             List<Account> result)
@@ -85,5 +82,17 @@ public class DemoLoggingAspet {
             String name = a.getName();
             a.setName(name.toUpperCase());
         }
+    }
+
+    @AfterThrowing(
+            pointcut = "execution(* com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO.findAccounts(..))",
+            throwing = "theExc")
+    public void afterThrowingAdvice(
+            JoinPoint joinPoint,
+            Throwable theExc){
+
+        System.out.println("========AFTER THROWING ADVICE=====");
+        System.out.println(theExc.getMessage());
+        System.out.println(joinPoint.getSignature().toShortString());
     }
 }

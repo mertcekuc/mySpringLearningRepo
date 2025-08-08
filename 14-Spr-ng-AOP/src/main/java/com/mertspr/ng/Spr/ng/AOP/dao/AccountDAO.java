@@ -16,4 +16,6 @@ public interface AccountDAO {
 
     public void addAccount(int i,int j);
     public List<Account> findAccounts();
+    public List<Account> findAccounts(boolean wire);
+
 }

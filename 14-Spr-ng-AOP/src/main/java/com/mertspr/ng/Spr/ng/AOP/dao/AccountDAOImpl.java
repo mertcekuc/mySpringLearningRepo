@@ -30,6 +30,23 @@ public class AccountDAOImpl implements AccountDAO {
         return result;
     }
 
+    @Override
+    public List<Account> findAccounts(boolean wire) {
+        if (wire){
+            throw new RuntimeException("BOOOM!!!");
+        }
+
+        List<Account> result = new ArrayList<>();
+
+        Account a1 = new Account("mert","12345");
+        Account a2 = new Account("Cekuc","5678");
+
+        result.add(a1);
+        result.add(a2);
+
+        return result;
+    }
+
     public String getName() {
         System.out.println(getClass() + "get name");
         return name;

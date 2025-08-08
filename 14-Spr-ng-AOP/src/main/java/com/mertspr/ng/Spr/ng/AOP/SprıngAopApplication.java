@@ -20,9 +20,25 @@ public class SprıngAopApplication {
 	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO){
 		return runner ->{
 			//demoTheBeforeAdvice(accountDAO,membershipDAO);
-			demoForAfterReturn(accountDAO);
+			//demoForAfterReturn(accountDAO);
+			demoAfterThrowingAdvice(accountDAO);
 
 		};
+
+	}
+
+	private void demoAfterThrowingAdvice(AccountDAO accountDAO) {
+		System.out.println("After throwing advice test");
+		List<Account> accs= null;
+
+		try{
+			boolean excWire=true;
+			accs = accountDAO.findAccounts(excWire);
+		}
+		catch(Exception e) {
+			System.out.println("Exception catched: " + e);
+		}
+		System.out.println(accs);
 
 	}
 
