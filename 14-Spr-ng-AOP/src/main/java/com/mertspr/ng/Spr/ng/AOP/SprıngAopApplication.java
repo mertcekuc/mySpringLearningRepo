@@ -25,7 +25,7 @@ public class SprıngAopApplication {
 	}
 
 	private void demoTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-		//accountDAO.addAccount(1,2);
+		accountDAO.addAccount(1,2);
 		System.out.println();
 		System.out.println("Adding membership");
 		membershipDAO.addMembership();
