@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class SprıngAopApplication {
 
@@ -17,23 +19,29 @@ public class SprıngAopApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO){
 		return runner ->{
-			demoTheBeforeAdvice(accountDAO,membershipDAO);
-
+			//demoTheBeforeAdvice(accountDAO,membershipDAO);
+			demoForAfterReturn(accountDAO);
 
 		};
 
 	}
 
+	private void demoForAfterReturn(AccountDAO accountDAO) {
+		List<Account> accs= accountDAO.findAccounts();
+		System.out.println(accs);
+	}
+
 	private void demoTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-		accountDAO.addAccount(1,2);
-		System.out.println();
-		System.out.println("Adding membership");
-		membershipDAO.addMembership();
+		//accountDAO.addAccount(1,2);
+		//System.out.println();
+		//System.out.println("Adding membership");
+		//membershipDAO.addMembership();
 
 		//call getter setters
-		accountDAO.setName("mert");
-		accountDAO.getName();
-		accountDAO.setServiceCode("1234ABCD");
-		accountDAO.getServiceCode();
+		//accountDAO.setName("mert");
+		//accountDAO.getName();
+		//accountDAO.setServiceCode("1234ABCD");
+		//accountDAO.getServiceCode();
+
 	}
 }

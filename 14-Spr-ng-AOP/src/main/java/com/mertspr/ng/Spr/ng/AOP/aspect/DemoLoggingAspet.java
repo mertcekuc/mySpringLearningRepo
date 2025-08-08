@@ -2,12 +2,16 @@ package com.mertspr.ng.Spr.ng.AOP.aspect;
 
 import com.mertspr.ng.Spr.ng.AOP.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.aop.MethodMatcher;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
@@ -56,9 +60,30 @@ public class DemoLoggingAspet {
         }
 
         System.out.println("Method: "+ methodSignature);
+    }
+    @AfterReturning(
+            pointcut = "execution(* com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO.findAccounts(..))",
+            returning = "result")
 
+    public void afterReturningAdvice(
+            JoinPoint joinPoint,
+            List<Account> result)
+    {
+        String method = joinPoint.toShortString();
+        System.out.println("\n===========METHOD================");
+        System.out.println(method);
+        System.out.println("\n===========RESULTS================");
+        System.out.println(result);
+        System.out.println("\n=======AFTER POST-PROCESS=========");
+        convertResultToUpperCase(result);
+        System.out.println(result);
 
     }
 
-
+    private void convertResultToUpperCase(List<Account> result) {
+        for(Account a: result){
+            String name = a.getName();
+            a.setName(name.toUpperCase());
+        }
+    }
 }

@@ -27,4 +27,12 @@ public class Account {
     public void setServiceCode(String serviceCode) {
         this.serviceCode = serviceCode;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                ", serviceCode='" + serviceCode + '\'' +
+                '}';
+    }
 }
