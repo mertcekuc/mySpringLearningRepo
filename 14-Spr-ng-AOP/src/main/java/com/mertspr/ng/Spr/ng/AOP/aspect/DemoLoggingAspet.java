@@ -95,4 +95,10 @@ public class DemoLoggingAspet {
         System.out.println(theExc.getMessage());
         System.out.println(joinPoint.getSignature().toShortString());
     }
+
+@After("execution(* com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO.findAccounts(..))")
+public void afterFinally(JoinPoint joinPoint){
+        System.out.println("========AFTER ADVICE=====");
+        System.out.println(joinPoint.getSignature().toShortString());
+    }
 }

@@ -21,10 +21,24 @@ public class SprıngAopApplication {
 		return runner ->{
 			//demoTheBeforeAdvice(accountDAO,membershipDAO);
 			//demoForAfterReturn(accountDAO);
-			demoAfterThrowingAdvice(accountDAO);
-
+			//demoAfterThrowingAdvice(accountDAO);
+			demoForAfterAdvice(accountDAO);
 		};
 
+	}
+
+	private void demoForAfterAdvice(AccountDAO accountDAO) {
+		System.out.println("After throwing advice test");
+		List<Account> accs= null;
+
+		try{
+			boolean excWire=true;
+			accs = accountDAO.findAccounts(excWire);
+		}
+		catch(Exception e) {
+			System.out.println("Exception catched: " + e);
+		}
+		System.out.println(accs);
 	}
 
 	private void demoAfterThrowingAdvice(AccountDAO accountDAO) {
