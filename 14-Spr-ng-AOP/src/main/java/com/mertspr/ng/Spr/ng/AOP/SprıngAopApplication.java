@@ -2,6 +2,7 @@ package com.mertspr.ng.Spr.ng.AOP;
 
 import com.mertspr.ng.Spr.ng.AOP.dao.AccountDAO;
 import com.mertspr.ng.Spr.ng.AOP.dao.MembershipDAO;
+import com.mertspr.ng.Spr.ng.AOP.service.TrafficFortuneService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,14 +18,39 @@ public class SprıngAopApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(AccountDAO accountDAO, MembershipDAO membershipDAO){
+	public CommandLineRunner commandLineRunner(AccountDAO accountDAO,
+											   MembershipDAO membershipDAO,
+											   TrafficFortuneService trafficFortuneService){
 		return runner ->{
 			//demoTheBeforeAdvice(accountDAO,membershipDAO);
 			//demoForAfterReturn(accountDAO);
 			//demoAfterThrowingAdvice(accountDAO);
-			demoForAfterAdvice(accountDAO);
+			//demoForAfterAdvice(accountDAO);
+			//demoAroundAdvice(trafficFortuneService);
+			aroundAdviceWithHandlingException(trafficFortuneService);
 		};
 
+	}
+
+	private void aroundAdviceWithHandlingException(TrafficFortuneService trafficFortuneService) {
+		System.out.println("Main program:");
+		boolean wire = true;
+		try {
+
+			String data = trafficFortuneService.getFortune(wire);
+			System.out.println(data);
+		}
+		catch (Exception e){
+			System.out.println("Exception handled......" + e);
+		}
+		System.out.println("Program finished");
+	}
+
+	private void demoAroundAdvice(TrafficFortuneService trafficFortuneService) {
+		System.out.println("Main program:");
+		String data = trafficFortuneService.getFortune();
+		System.out.println(data);
+		System.out.println("Program finished");
 	}
 
 	private void demoForAfterAdvice(AccountDAO accountDAO) {

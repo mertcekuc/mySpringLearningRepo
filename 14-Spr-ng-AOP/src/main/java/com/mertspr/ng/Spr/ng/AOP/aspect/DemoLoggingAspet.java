@@ -2,6 +2,7 @@ package com.mertspr.ng.Spr.ng.AOP.aspect;
 
 import com.mertspr.ng.Spr.ng.AOP.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.aop.MethodMatcher;
@@ -100,5 +101,31 @@ public class DemoLoggingAspet {
 public void afterFinally(JoinPoint joinPoint){
         System.out.println("========AFTER ADVICE=====");
         System.out.println(joinPoint.getSignature().toShortString());
+    }
+
+    @Around("execution(* com.mertspr.ng.Spr.ng.AOP.service.*.getFortune(..))")
+    public Object aroundAdvice(ProceedingJoinPoint pjp) throws Throwable {
+        String method = pjp.getSignature().toShortString();
+        System.out.println(method);
+
+        long start = System.currentTimeMillis();
+
+        System.out.println("Proceeding jsp");
+        Object result;
+        try {
+            result = pjp.proceed();
+        }
+        catch (Exception e){
+            System.out.println(String.format("Exceptin catched in Around Advice: %s",e.getMessage()));
+
+            result = "There was an exception in process.";
+            throw e;
+        }
+
+        long end = System.currentTimeMillis();
+        long duration = end - start;
+        System.out.println(String.format("Duration: %d",duration));
+
+        return  result;
     }
 }
